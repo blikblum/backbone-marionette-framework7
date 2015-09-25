@@ -37,18 +37,17 @@ module.exports = Marionette.LayoutView.extend({
 	},
 
 	events: {
-		"click .search": "navigate",
-		"click .navigate": "navigate",
-		"click .views": "closeMenu",
-		"click .menu": "toggleMenu",
-		"click .view-menu .navigate": "navigateFromMenu",
-		"click #popup-login .close": "closeModal"
+		"click .toolbar .tab-link": "didSelectTab"
 	},
 
   	regions: {
     	mainView: {
     		regionClass: F7Region,
     		selector: ".view-main .pages"
+    	},
+    	tab2: {
+    		regionClass: F7Region,
+    		selector: ".view-tab2 .pages"
     	}
   	},
 
@@ -61,79 +60,21 @@ module.exports = Marionette.LayoutView.extend({
   			$(view).addClass('active');
   		}
 
-        window.router.navigate($(e.currentTarget).attr('href'), { trigger: true });
+  		if ($(e.currentTarget).attr('href') != "") {
+        	window.router.navigate($(e.currentTarget).attr('href'), { trigger: true });
+        }
 
         e.preventDefault();
         return false;
     },
 
-    navigateFromMenu: function(e) {
-    	// Stop pages animations temporarly
-    	App.animatePages = false;
+    didSelectTab: function(e) {
+    	if (!$(e.currentTarget).hasClass('active')) {
+    		this.$el.find('.tab-link.active').removeClass('active');
+    		$(e.currentTarget).addClass('active');
 
-    	// Close menu
-    	this.closeMenu(e);
-
-    	// Navigation
-    	this.navigate(e);
-
-    	// Reinit pages animations
-    	App.animatePages = true;
-
-    	e.preventDefault();
-        return false;
-    },
-
-    closeMenu: function(e) {
-    	var mainView = $('.view-main').parent(),
-    		menuView = $('.view-menu');
-
-    	if (menuView.parent().hasClass('menu-reveal')) {
-        	TweenMax.to(menuView, .3, {
-        		scale: 2
-        	});
-
-        	TweenMax.to(mainView, .3, {
-        		x: '0%',
-        		scale: 1,
-        		onComplete:function() {
-        			menuView.parent().removeClass('menu-reveal');
-        		}
-        	});
-
-        	e.stopPropagation();
-        }
-    },
-
-    toggleMenu: function(e) {
-    	var mainView = $('.view-main').parent(),
-    		menuView = $('.view-menu');
-
-    	if (menuView.parent().hasClass('menu-reveal')) {
-    		this.closeMenu(e);
+    		// Show selected tab
+    		this.navigate(e);
     	}
-    	else {
-        	TweenMax.to(menuView, .3, {
-        		scale: 1
-        	});
-
-        	TweenMax.to(mainView, .3, {
-        		x: '80%',
-        		scale: 0.9,
-        		onComplete:function() {
-        			menuView.parent().addClass('menu-reveal');
-        		}
-        	});
-        }
-
-    	e.preventDefault();
-    	return false;
-    },
-
-    closeModal: function(e) {
-    	window.f7.closeModal($('#popup-login'));
-
-    	e.preventDefault();
-    	return false;
     }
 });

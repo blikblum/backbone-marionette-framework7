@@ -1,12 +1,10 @@
 require('jquery');
 require('backbone');
 require('framework7');
+var Handlebars = require('handlebars');
 
 var App = require('App');
 var Conf = require('Conf');
-
-console.log(Conf);
-
 var Router = require('./routes.js');
 
 // Init app
@@ -40,6 +38,11 @@ App.on('start', function() {
         domCache: true // Use to get deep back button work
     });
 
+    f7.addView('.view-tab2', {
+        dynamicNavbar: true,
+        domCache: true
+    });
+
     // Attache current Marionette view to Framework7 page for delete
     f7.onPageInit('*', function(page) {
         var viewSelector = page.view.selector;
@@ -47,7 +50,11 @@ App.on('start', function() {
         // Save BM's view for destroy later
         switch(viewSelector) {
             case '.view-main':
-                //page.context = window.router.layout.pages.currentView;
+                page.context = window.router.layout.mainView.currentView;
+                break;
+
+            case '.view-tab2':
+                page.context = window.router.layout.tab2.currentView;
                 break;
         }
     });
@@ -67,3 +74,14 @@ App.on('start', function() {
 
 // Start app
 App.start();
+
+
+/**
+ * Register all your Handlebars helpers / partials
+ */
+
+// Each with limit
+Handlebars.registerHelper('limit', function (arr, limit) {
+    if (!_.isArray(arr)) { return []; } // remove this line if you don't want the lodash/underscore dependency
+    return arr.slice(0, limit);
+});
