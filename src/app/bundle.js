@@ -14818,16 +14818,18 @@ require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof requ
 }).call(global, undefined, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":12}],2:[function(require,module,exports){
+},{"_process":11}],2:[function(require,module,exports){
 
 },{}],3:[function(require,module,exports){
-arguments[4][2][0].apply(exports,arguments)
-},{"dup":2}],4:[function(require,module,exports){
 require('jquery');
 require('backbone');
 require('framework7');
 
 var App = require('App');
+var Conf = require('Conf');
+
+console.log(Conf);
+
 var Router = require('./routes.js');
 
 // Init app
@@ -14888,7 +14890,7 @@ App.on('start', function() {
 
 // Start app
 App.start();
-},{"./routes.js":5,"App":"App","backbone":11,"framework7":1,"jquery":33}],5:[function(require,module,exports){
+},{"./routes.js":4,"App":"App","Conf":"Conf","backbone":10,"framework7":1,"jquery":32}],4:[function(require,module,exports){
 require('backbone');
 require('marionette');
 
@@ -14933,21 +14935,21 @@ module.exports = Marionette.AppRouter.extend({
         this.layout.mainView.show(page);
     }
 });
-},{"./views/home/index.js":8,"./views/layouts/main.js":9,"App":"App","backbone":11,"marionette":10}],6:[function(require,module,exports){
+},{"./views/home/index.js":7,"./views/layouts/main.js":8,"App":"App","backbone":10,"marionette":9}],5:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div class=\"page-content\">\n	Coucou\n</div>";
 },"useData":true});
 
-},{"hbsfy/runtime":32}],7:[function(require,module,exports){
+},{"hbsfy/runtime":31}],6:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div class=\"views tabs\">\n	<div class=\"view tab view-main active\">\n		<div class=\"navbar\">\n			<div class=\"navbar-inner\">\n				<div class=\"left\"></div>\n				<div class=\"center sliding\">Hello</div>\n				<div class=\"right\"></div>\n			</div>\n		</div>\n\n		<div class=\"pages navbar-through\"></div>\n	</div>\n</div>";
 },"useData":true});
 
-},{"hbsfy/runtime":32}],8:[function(require,module,exports){
+},{"hbsfy/runtime":31}],7:[function(require,module,exports){
 var Marionnette = require('marionette');
 
 module.exports = Marionnette.ItemView.extend({
@@ -14960,7 +14962,7 @@ module.exports = Marionnette.ItemView.extend({
         }
     }
 });
-},{"../../templates/home/index.hbs":6,"marionette":10}],9:[function(require,module,exports){
+},{"../../templates/home/index.hbs":5,"marionette":9}],8:[function(require,module,exports){
 require('marionette');
 
 var F7Region = Marionette.Region.extend({
@@ -15100,7 +15102,7 @@ module.exports = Marionette.LayoutView.extend({
     	return false;
     }
 });
-},{"../../templates/layouts/main.hbs":7,"marionette":10}],10:[function(require,module,exports){
+},{"../../templates/layouts/main.hbs":6,"marionette":9}],9:[function(require,module,exports){
 (function (global){
 
 ; require("/Users/underwarz/Sites/framework7/src/node_modules/backbone/backbone.js");
@@ -19057,7 +19059,7 @@ module.exports = Marionette.LayoutView.extend({
 }).call(global, undefined, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"/Users/underwarz/Sites/framework7/src/node_modules/backbone/backbone.js":11}],11:[function(require,module,exports){
+},{"/Users/underwarz/Sites/framework7/src/node_modules/backbone/backbone.js":10}],10:[function(require,module,exports){
 (function (global){
 
 ; require("/Users/underwarz/Sites/framework7/src/node_modules/jquery/dist/jquery.js");
@@ -20963,7 +20965,7 @@ require("/Users/underwarz/Sites/framework7/src/node_modules/underscore/underscor
 }).call(global, undefined, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"/Users/underwarz/Sites/framework7/src/node_modules/jquery/dist/jquery.js":33,"/Users/underwarz/Sites/framework7/src/node_modules/underscore/underscore.js":34}],12:[function(require,module,exports){
+},{"/Users/underwarz/Sites/framework7/src/node_modules/jquery/dist/jquery.js":32,"/Users/underwarz/Sites/framework7/src/node_modules/underscore/underscore.js":33}],11:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -21056,7 +21058,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],13:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -21125,7 +21127,7 @@ exports['default'] = inst;
 module.exports = exports['default'];
 
 
-},{"./handlebars/base":14,"./handlebars/exception":17,"./handlebars/no-conflict":27,"./handlebars/runtime":28,"./handlebars/safe-string":29,"./handlebars/utils":30}],14:[function(require,module,exports){
+},{"./handlebars/base":13,"./handlebars/exception":16,"./handlebars/no-conflict":26,"./handlebars/runtime":27,"./handlebars/safe-string":28,"./handlebars/utils":29}],13:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -21231,7 +21233,7 @@ exports.createFrame = _utils.createFrame;
 exports.logger = _logger2['default'];
 
 
-},{"./decorators":15,"./exception":17,"./helpers":18,"./logger":26,"./utils":30}],15:[function(require,module,exports){
+},{"./decorators":14,"./exception":16,"./helpers":17,"./logger":25,"./utils":29}],14:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -21249,7 +21251,7 @@ function registerDefaultDecorators(instance) {
 }
 
 
-},{"./decorators/inline":16}],16:[function(require,module,exports){
+},{"./decorators/inline":15}],15:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -21280,7 +21282,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../utils":30}],17:[function(require,module,exports){
+},{"../utils":29}],16:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -21322,7 +21324,7 @@ exports['default'] = Exception;
 module.exports = exports['default'];
 
 
-},{}],18:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -21370,7 +21372,7 @@ function registerDefaultHelpers(instance) {
 }
 
 
-},{"./helpers/block-helper-missing":19,"./helpers/each":20,"./helpers/helper-missing":21,"./helpers/if":22,"./helpers/log":23,"./helpers/lookup":24,"./helpers/with":25}],19:[function(require,module,exports){
+},{"./helpers/block-helper-missing":18,"./helpers/each":19,"./helpers/helper-missing":20,"./helpers/if":21,"./helpers/log":22,"./helpers/lookup":23,"./helpers/with":24}],18:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -21411,7 +21413,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../utils":30}],20:[function(require,module,exports){
+},{"../utils":29}],19:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -21507,7 +21509,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../exception":17,"../utils":30}],21:[function(require,module,exports){
+},{"../exception":16,"../utils":29}],20:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -21534,7 +21536,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../exception":17}],22:[function(require,module,exports){
+},{"../exception":16}],21:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -21565,7 +21567,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../utils":30}],23:[function(require,module,exports){
+},{"../utils":29}],22:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -21593,7 +21595,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{}],24:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -21607,7 +21609,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{}],25:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -21642,7 +21644,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../utils":30}],26:[function(require,module,exports){
+},{"../utils":29}],25:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -21691,7 +21693,7 @@ exports['default'] = logger;
 module.exports = exports['default'];
 
 
-},{"./utils":30}],27:[function(require,module,exports){
+},{"./utils":29}],26:[function(require,module,exports){
 (function (global){
 /* global window */
 'use strict';
@@ -21714,7 +21716,7 @@ module.exports = exports['default'];
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],28:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -22008,7 +22010,7 @@ function executeDecorators(fn, prog, container, depths, data, blockParams) {
 }
 
 
-},{"./base":14,"./exception":17,"./utils":30}],29:[function(require,module,exports){
+},{"./base":13,"./exception":16,"./utils":29}],28:[function(require,module,exports){
 // Build out our basic SafeString type
 'use strict';
 
@@ -22025,7 +22027,7 @@ exports['default'] = SafeString;
 module.exports = exports['default'];
 
 
-},{}],30:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -22151,15 +22153,15 @@ function appendContextPath(contextPath, id) {
 }
 
 
-},{}],31:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 // Create a simple path alias to allow browserify to resolve
 // the runtime on a supported path.
 module.exports = require('./dist/cjs/handlebars.runtime')['default'];
 
-},{"./dist/cjs/handlebars.runtime":13}],32:[function(require,module,exports){
+},{"./dist/cjs/handlebars.runtime":12}],31:[function(require,module,exports){
 module.exports = require("handlebars/runtime")["default"];
 
-},{"handlebars/runtime":31}],33:[function(require,module,exports){
+},{"handlebars/runtime":30}],32:[function(require,module,exports){
 (function (global){
 ; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 /*!
@@ -31378,7 +31380,7 @@ return jQuery;
 }).call(global, undefined, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],34:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 (function (global){
 ; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 //     Underscore.js 1.8.3
@@ -32953,4 +32955,40 @@ app.addRegions({
 });
 
 module.exports = app;
-},{"marionette":10}]},{},["App",2,3,4,5]);
+},{"marionette":9}],"Conf":[function(require,module,exports){
+// This is ENV based conf
+var conf = {
+    dev: {
+        api_host: ""
+    },
+    prod: {
+        api_host: ""
+    }
+};
+
+// This is Common conf
+var common = {
+    gcm: {
+        senderID: ""
+    }
+};
+
+var mergeConf = function() {
+    var app = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
+    var config;
+
+    if (!app) {
+        config = conf.dev;
+    }
+    else {
+        config = conf.prod;
+    }
+
+    // Merge common config with env config
+    config = $.extend({}, config, common);
+
+    return config;
+};
+
+module.exports = mergeConf();
+},{}]},{},["App","Conf",2,3,4]);

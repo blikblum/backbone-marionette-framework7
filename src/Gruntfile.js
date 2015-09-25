@@ -136,7 +136,8 @@ module.exports = function (grunt) {
         browserify: {
             options: {
                 alias: {
-                    'App': '<%= yeoman.app %>/scripts/app.js'
+                    'App': '<%= yeoman.app %>/scripts/app.js',
+                    'Conf': '<%= yeoman.app %>/scripts/conf.js'
                 }
             },
             dev: {

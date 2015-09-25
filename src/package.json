@@ -46,7 +46,8 @@
     "underscore": "./node_modules/underscore/underscore.js",
     "backbone": "./node_modules/backbone/backbone.js",
     "marionette": "./node_modules/backbone.marionette/lib/backbone.marionette.js",
-    "framework7": "./app/bower_components/framework7/dist/js/framework7.js"
+    "framework7": "./app/bower_components/framework7/dist/js/framework7.js",
+    "app": "./app/scripts/app.js"
   },
   "browserify-shim": {
     "jquery": "$",

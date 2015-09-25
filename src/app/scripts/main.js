@@ -3,6 +3,10 @@ require('backbone');
 require('framework7');
 
 var App = require('App');
+var Conf = require('Conf');
+
+console.log(Conf);
+
 var Router = require('./routes.js');
 
 // Init app
