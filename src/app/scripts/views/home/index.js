@@ -13,12 +13,18 @@ module.exports = MainItemView.extend({
     },
 
     additionalEvents: {
-        "click .open-popup": "openPopup"
+        "click .open-popup": "openPopup",
+        "click .open-popup-login": "openPopupLogin"
     },
 
     openPopup: function(e) {
         new Popup;
 
+        e.preventDefault();
+        return false;
+    },
+
+    openPopupLogin: function(e) {
         e.preventDefault();
         return false;
     }

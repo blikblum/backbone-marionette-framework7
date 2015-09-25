@@ -1,7 +1,7 @@
 var Marionnette = require('marionette');
 
 module.exports = Marionnette.ItemView.extend({
-    activeView: '.view.active',
+    activeView: '.view.active', // Default to current active view, this is need to be set for popup's navigation
     originalEvents: {
         "click .navigate": "navigate",
         "click .back": "back"

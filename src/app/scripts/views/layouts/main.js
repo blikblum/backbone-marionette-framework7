@@ -37,18 +37,23 @@ module.exports = Marionette.LayoutView.extend({
 	},
 
 	events: {
-		"click .toolbar .tab-link": "didSelectTab"
+		"click .toolbar .tab-link": "didSelectTab",
+        "click #popup-login .close": "closeLoginPopup"
 	},
 
   	regions: {
-    	mainView: {
+	   mainView: {
     		regionClass: F7Region,
     		selector: ".view-main .pages"
     	},
     	tab2: {
     		regionClass: F7Region,
     		selector: ".view-tab2 .pages"
-    	}
+    	},
+        login: {
+            regionClass: F7Region,
+            selector: ".view-login .pages"
+        }
   	},
 
   	navigate: function(e) {
@@ -76,5 +81,12 @@ module.exports = Marionette.LayoutView.extend({
     		// Show selected tab
     		this.navigate(e);
     	}
+    },
+
+    closeLoginPopup: function(e) {
+        window.f7.closeModal($('#popup-login'));
+
+        e.preventDefault();
+        return false;
     }
 });

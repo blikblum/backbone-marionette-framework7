@@ -43,6 +43,11 @@ App.on('start', function() {
         domCache: true
     });
 
+    f7.addView('.view-login', {
+        dynamicNavbar: true,
+        domCache: true
+    });
+
     // Attache current Marionette view to Framework7 page for delete
     f7.onPageInit('*', function(page) {
         var viewSelector = page.view.selector;
@@ -55,6 +60,10 @@ App.on('start', function() {
 
             case '.view-tab2':
                 page.context = window.router.layout.tab2.currentView;
+                break;
+
+            case '.view-login':
+                page.context = window.router.layout.login.currentView;
                 break;
         }
     });

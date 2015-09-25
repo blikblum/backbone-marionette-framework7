@@ -14818,7 +14818,7 @@ require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof requ
 }).call(global, undefined, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":22}],2:[function(require,module,exports){
+},{"_process":26}],2:[function(require,module,exports){
 
 },{}],3:[function(require,module,exports){
 require('jquery');
@@ -14866,6 +14866,11 @@ App.on('start', function() {
         domCache: true
     });
 
+    f7.addView('.view-login', {
+        dynamicNavbar: true,
+        domCache: true
+    });
+
     // Attache current Marionette view to Framework7 page for delete
     f7.onPageInit('*', function(page) {
         var viewSelector = page.view.selector;
@@ -14878,6 +14883,10 @@ App.on('start', function() {
 
             case '.view-tab2':
                 page.context = window.router.layout.tab2.currentView;
+                break;
+
+            case '.view-login':
+                page.context = window.router.layout.login.currentView;
                 break;
         }
     });
@@ -14908,7 +14917,7 @@ Handlebars.registerHelper('limit', function (arr, limit) {
     if (!_.isArray(arr)) { return []; } // remove this line if you don't want the lodash/underscore dependency
     return arr.slice(0, limit);
 });
-},{"./routes.js":4,"App":"App","Conf":"Conf","backbone":19,"framework7":1,"handlebars":52,"jquery":67}],4:[function(require,module,exports){
+},{"./routes.js":4,"App":"App","Conf":"Conf","backbone":23,"framework7":1,"handlebars":56,"jquery":71}],4:[function(require,module,exports){
 require('backbone');
 require('marionette');
 
@@ -14918,6 +14927,8 @@ var MainLayout = require('./views/layouts/main.js');
 var HomeView = require('./views/home/index.js');
 var HomeSingleView = require('./views/home/single.js');
 var HomePopupView = require('./views/home/popup.js');
+var LoginView = require('./views/login/login.js');
+var RegisterView = require('./views/login/register.js');
 var Tab2IndexView = require('./views/tab2/index.js');
 
 module.exports = Marionette.AppRouter.extend({
@@ -14949,6 +14960,8 @@ module.exports = Marionette.AppRouter.extend({
     routes: {
         "": "getHome",
         "home/single": "getHomeSingle",
+        "login": "getLogin",
+        "register": "getRegister",
         "tab2": "getTab2"
     },
 
@@ -14963,51 +14976,77 @@ module.exports = Marionette.AppRouter.extend({
         this.layout.mainView.addView(page); // Open a new page in the current view and perform animation
     },
 
+    getLogin: function() {
+        var page = new LoginView;
+        this.layout.login.show(page);
+    },
+
+    getRegister: function() {
+        var page = new RegisterView({
+            activeView: '#popup-login .view'
+        });
+        this.layout.login.addView(page);
+    },
+
     getTab2: function() {
         var page = new Tab2IndexView;
         this.layout.tab2.show(page);
     }
 });
-},{"./views/home/index.js":11,"./views/home/popup.js":12,"./views/home/single.js":13,"./views/layouts/main.js":14,"./views/tab2/index.js":17,"App":"App","backbone":19,"marionette":18}],5:[function(require,module,exports){
+},{"./views/home/index.js":13,"./views/home/popup.js":14,"./views/home/single.js":15,"./views/layouts/main.js":16,"./views/login/login.js":17,"./views/login/register.js":18,"./views/tab2/index.js":21,"App":"App","backbone":23,"marionette":22}],5:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"page-content\">\n	<div class=\"content-block-title\">Welcome</div>\n	<div class=\"content-block\">\n		<p>Enjoy using Backbone/Marionnette with this awesome Framework7!</p>\n	</div>\n\n	<div class=\"content-block-title\">Exemples</div>\n	<div class=\"list-block\">\n		<ul>\n        	<li class=\"item-content\">\n          		<div class=\"item-inner\">\n            		<div class=\"item-title\">Item with no link</div>\n          		</div>\n        	</li>\n        	<li>\n        		<a href=\"home/single\" class=\"item-link item-content navigate\">\n          			<div class=\"item-inner\">\n            			<div class=\"item-title\">Open page in this view</div>\n          			</div>\n          		</a>\n        	</li>\n        	<li>\n        		<a href=\"#\" class=\"item-link item-content open-popup\">\n          			<div class=\"item-inner\">\n            			<div class=\"item-title\">Open single popup</div>\n          			</div>\n          		</a>\n        	</li>\n        </ul>\n	</div>\n</div>";
+    return "<div class=\"page-content\">\n	<div class=\"content-block-title\">Welcome</div>\n	<div class=\"content-block\">\n		<p>Enjoy using Backbone/Marionnette with this awesome Framework7!</p>\n	</div>\n\n	<div class=\"content-block-title\">Exemples</div>\n	<div class=\"list-block\">\n		<ul>\n        	<li class=\"item-content\">\n          		<div class=\"item-inner\">\n            		<div class=\"item-title\">Item with no link</div>\n          		</div>\n        	</li>\n        	<li>\n        		<a href=\"home/single\" class=\"item-link item-content navigate\">\n          			<div class=\"item-inner\">\n            			<div class=\"item-title\">Open page in this view</div>\n          			</div>\n          		</a>\n        	</li>\n        	<li>\n        		<a href=\"#\" class=\"item-link item-content open-popup\">\n          			<div class=\"item-inner\">\n            			<div class=\"item-title\">Open single popup</div>\n          			</div>\n          		</a>\n        	</li>\n            <li>\n                <a href=\"login\" class=\"item-link item-content navigate\">\n                    <div class=\"item-inner\">\n                        <div class=\"item-title\">Open login/register popup</div>\n                    </div>\n                </a>\n            </li>\n        </ul>\n	</div>\n</div>";
 },"useData":true});
 
-},{"hbsfy/runtime":66}],6:[function(require,module,exports){
+},{"hbsfy/runtime":70}],6:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div class=\"popup\" id=\"popup-home\">\n	<div class=\"navbar\">\n	    <div class=\"navbar-inner\">\n	        <div class=\"left\">\n	        	<a href=\"#\" class=\"link close\">\n                    <span>Close</span>\n                </a>\n	        </div>\n	        <div class=\"center\">Popup</div>\n	        <div class=\"right\"></div>\n	    </div>\n	</div>\n\n  	<div class=\"content-block\">\n  		<p>This is an exemple on a single popup opened from a view</p>\n  	</div>\n</div>";
 },"useData":true});
 
-},{"hbsfy/runtime":66}],7:[function(require,module,exports){
+},{"hbsfy/runtime":70}],7:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div class=\"navbar\">\n    <div class=\"navbar-inner\">\n    	<div class=\"left\">\n            <a href=\"search\" class=\"link back icon-only\">\n                <i class=\"icon icon-back\"></i>\n            </a>\n        </div>\n    	<div class=\"center\">Single</div>\n    </div>\n</div>\n<div class=\"page\" id=\"single\" data-page=\"single\">\n	<div class=\"page-content\">\n		<div class=\"content-block\">\n			<p>This is an exemple of a page loaded from a main page.</p>\n		</div>\n	</div>\n</div>";
 },"useData":true});
 
-},{"hbsfy/runtime":66}],8:[function(require,module,exports){
+},{"hbsfy/runtime":70}],8:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"views tabs toolbar-fixed\">\n	<div class=\"view tab view-main active\">\n		<div class=\"navbar\">\n			<div class=\"navbar-inner\">\n				<div class=\"left\"></div>\n				<div class=\"center sliding\">Hello</div>\n				<div class=\"right\"></div>\n			</div>\n		</div>\n\n		<div class=\"pages navbar-through\"></div>\n	</div>\n\n	<div class=\"view tab view-tab2\">\n		<div class=\"navbar\">\n			<div class=\"navbar-inner\">\n				<div class=\"left\"></div>\n				<div class=\"center sliding\">Tab 2</div>\n				<div class=\"right\"></div>\n			</div>\n		</div>\n\n		<div class=\"pages navbar-through\"></div>\n	</div>\n\n	<div class=\"toolbar tabbar\">\n	    <div class=\"toolbar-inner\">\n	        <a href=\"\" class=\"tab-link active\" data-view=\".view-main\">\n	            <span class=\"tabbar-label\">Home</span>\n	        </a>\n	        <a href=\"tab2\" class=\"tab-link\" data-view=\".view-tab2\">\n	            <span class=\"tabbar-label\">Tab 2</span>\n	        </a>\n	    </div>\n	</div>\n</div>";
+    return "<div class=\"views tabs toolbar-fixed\">\n	<div class=\"view tab view-main active\">\n		<div class=\"navbar\">\n			<div class=\"navbar-inner\">\n				<div class=\"left\"></div>\n				<div class=\"center sliding\">Hello</div>\n				<div class=\"right\"></div>\n			</div>\n		</div>\n\n		<div class=\"pages navbar-through\"></div>\n	</div>\n\n	<div class=\"view tab view-tab2\">\n		<div class=\"navbar\">\n			<div class=\"navbar-inner\">\n				<div class=\"left\"></div>\n				<div class=\"center sliding\">Tab 2</div>\n				<div class=\"right\"></div>\n			</div>\n		</div>\n\n		<div class=\"pages navbar-through\"></div>\n	</div>\n\n	<div class=\"toolbar tabbar\">\n	    <div class=\"toolbar-inner\">\n	        <a href=\"\" class=\"tab-link active\" data-view=\".view-main\">\n	            <span class=\"tabbar-label\">Home</span>\n	        </a>\n	        <a href=\"tab2\" class=\"tab-link\" data-view=\".view-tab2\">\n	            <span class=\"tabbar-label\">Tab 2</span>\n	        </a>\n	    </div>\n	</div>\n</div>\n\n<div class=\"popup\" id=\"popup-login\">\n    <div class=\"view view-login\">\n        <div class=\"navbar\">\n            <div class=\"navbar-inner\">\n                <div class=\"center\">Login</div>\n                <div class=\"right\">\n                    <a href=\"#\" class=\"link close\">\n                        <span>Close</span>\n                    </a>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"pages navbar-through\"></div>\n    </div>\n</div>";
 },"useData":true});
 
-},{"hbsfy/runtime":66}],9:[function(require,module,exports){
+},{"hbsfy/runtime":70}],9:[function(require,module,exports){
+// hbsfy compiled Handlebars template
+var HandlebarsCompiler = require('hbsfy/runtime');
+module.exports = HandlebarsCompiler.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"page-content\">\n    <div class=\"list-block with-labels\">\n        <ul>\n            <li>\n                <div class=\"item-content\">\n                    <div class=\"item-inner\">\n                        <div class=\"item-title label\">Email</div>\n                        <div class=\"item-input\">\n                            <input type=\"email\">\n                        </div>\n                    </div>\n                </div>\n            </li>\n            <li>\n                <div class=\"item-content\">\n                    <div class=\"item-inner\">\n                        <div class=\"item-title label\">Password</div>\n                        <div class=\"item-input\">\n                            <input type=\"password\">\n                        </div>\n                    </div>\n                </div>\n            </li>\n        </ul>\n    </div>\n\n    <div class=\"content-block\">\n        <a href=\"register\" class=\"button button-big button-round navigate\">Signin</a>\n    </div>\n\n    <div class=\"content-block\">\n        <p align=\"center\"><a href=\"register\" class=\"register navigate\">Signup</a></p>\n    </div>\n</div>";
+},"useData":true});
+
+},{"hbsfy/runtime":70}],10:[function(require,module,exports){
+// hbsfy compiled Handlebars template
+var HandlebarsCompiler = require('hbsfy/runtime');
+module.exports = HandlebarsCompiler.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"navbar light\">\n    <div class=\"navbar-inner\">\n    	<div class=\"left\">\n            <a href=\"#\" class=\"link back icon-only\">\n                <i class=\"icon icon-back light\"></i>\n            </a>\n        </div>\n        <div class=\"center\">Register</div>\n        <div class=\"right\">\n            <a href=\"#\" class=\"link close\">\n                <span>Close</span>\n            </a>\n        </div>\n    </div>\n</div>\n<div class=\"page\" id=\"register\" data-page=\"register\">\n    <div class=\"page-content\">\n        <div class=\"list-block with-labels\">\n            <ul>\n                <li>\n                    <div class=\"item-content\">\n                        <div class=\"item-inner\">\n                            <div class=\"item-title label\">Email</div>\n                            <div class=\"item-input\">\n                                <input type=\"email\">\n                            </div>\n                        </div>\n                    </div>\n                </li>\n                <li>\n                    <div class=\"item-content\">\n                        <div class=\"item-inner\">\n                            <div class=\"item-title label\">Password</div>\n                            <div class=\"item-input\">\n                                <input type=\"password\">\n                            </div>\n                        </div>\n                    </div>\n                </li>\n            </ul>\n        </div>\n        \n        <div class=\"content-block\">\n            <a href=\"#\" class=\"button button-big button-round\">Signup</a>\n        </div>\n    </div>\n</div>";
+},"useData":true});
+
+},{"hbsfy/runtime":70}],11:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div class=\"page-content\">\n	Contenu tab2\n</div>";
 },"useData":true});
 
-},{"hbsfy/runtime":66}],10:[function(require,module,exports){
+},{"hbsfy/runtime":70}],12:[function(require,module,exports){
 var Marionnette = require('marionette');
 
 module.exports = Marionnette.ItemView.extend({
-    activeView: '.view.active',
+    activeView: '.view.active', // Default to current active view, this is need to be set for popup's navigation
     originalEvents: {
         "click .navigate": "navigate",
         "click .back": "back"
@@ -15055,7 +15094,7 @@ module.exports = Marionnette.ItemView.extend({
         }
     }
 });
-},{"marionette":18}],11:[function(require,module,exports){
+},{"marionette":22}],13:[function(require,module,exports){
 var Marionnette = require('marionette');
 var MainItemView = require('../mainItemView.js');
 var Popup = require('./popup.js');
@@ -15071,7 +15110,8 @@ module.exports = MainItemView.extend({
     },
 
     additionalEvents: {
-        "click .open-popup": "openPopup"
+        "click .open-popup": "openPopup",
+        "click .open-popup-login": "openPopupLogin"
     },
 
     openPopup: function(e) {
@@ -15079,22 +15119,27 @@ module.exports = MainItemView.extend({
 
         e.preventDefault();
         return false;
+    },
+
+    openPopupLogin: function(e) {
+        e.preventDefault();
+        return false;
     }
 });
-},{"../../templates/home/index.hbs":5,"../mainItemView.js":15,"./popup.js":12,"marionette":18}],12:[function(require,module,exports){
+},{"../../templates/home/index.hbs":5,"../mainItemView.js":19,"./popup.js":14,"marionette":22}],14:[function(require,module,exports){
 var Popup = require('../popup.js');
 
 module.exports = Popup.extend({
     id: 'popup-home',
     template: require('../../templates/home/popup.hbs')
 });
-},{"../../templates/home/popup.hbs":6,"../popup.js":16}],13:[function(require,module,exports){
+},{"../../templates/home/popup.hbs":6,"../popup.js":20}],15:[function(require,module,exports){
 var ChildItemView = require('../childItemView.js');
 
 module.exports = ChildItemView.extend({
     template: require('../../templates/home/single.hbs')
 });
-},{"../../templates/home/single.hbs":7,"../childItemView.js":10}],14:[function(require,module,exports){
+},{"../../templates/home/single.hbs":7,"../childItemView.js":12}],16:[function(require,module,exports){
 require('marionette');
 
 var F7Region = Marionette.Region.extend({
@@ -15134,18 +15179,23 @@ module.exports = Marionette.LayoutView.extend({
 	},
 
 	events: {
-		"click .toolbar .tab-link": "didSelectTab"
+		"click .toolbar .tab-link": "didSelectTab",
+        "click #popup-login .close": "closeLoginPopup"
 	},
 
   	regions: {
-    	mainView: {
+	   mainView: {
     		regionClass: F7Region,
     		selector: ".view-main .pages"
     	},
     	tab2: {
     		regionClass: F7Region,
     		selector: ".view-tab2 .pages"
-    	}
+    	},
+        login: {
+            regionClass: F7Region,
+            selector: ".view-login .pages"
+        }
   	},
 
   	navigate: function(e) {
@@ -15173,9 +15223,66 @@ module.exports = Marionette.LayoutView.extend({
     		// Show selected tab
     		this.navigate(e);
     	}
+    },
+
+    closeLoginPopup: function(e) {
+        window.f7.closeModal($('#popup-login'));
+
+        e.preventDefault();
+        return false;
     }
 });
-},{"../../templates/layouts/main.hbs":8,"marionette":18}],15:[function(require,module,exports){
+},{"../../templates/layouts/main.hbs":8,"marionette":22}],17:[function(require,module,exports){
+var Marionnette = require('marionette');
+
+module.exports = Marionnette.ItemView.extend({
+    template: require('../../templates/login/login.hbs'),
+    attributes: function() {
+        return {
+            'id': 'login',
+            'class': 'page',
+            'data-page': 'login'
+        }
+    },
+
+    events: {
+        "click .navigate": "navigate"
+    },
+
+    onShow: function() {
+        // Open popup
+        window.f7.popup('#popup-login');
+
+        $('#popup-login').on('closed', _.bind(this.onClosed, this));
+    },
+
+    onClosed: function() {
+        this.destroy();
+
+        // Clear view
+        $('#popup-login .pages').empty();
+        $('#popup-login .navbar-inner:gt(0)').remove();
+        $('#popup-login .navbar-inner').removeClass().addClass('navbar-inner');
+    },
+
+    onDestroy: function() {
+        this.undelegateEvents();
+    },
+
+    navigate: function(e) {
+        window.router.navigate($(e.currentTarget).attr('href'), { trigger: true });
+
+        e.preventDefault();
+        return false;
+    }
+});
+},{"../../templates/login/login.hbs":9,"marionette":22}],18:[function(require,module,exports){
+var ChildItemView = require('../childItemView.js');
+
+module.exports = ChildItemView.extend({
+    template: require('../../templates/login/register.hbs')
+});
+},{"../../templates/login/register.hbs":10,"../childItemView.js":12}],19:[function(require,module,exports){
 var Marionnette = require('marionette');
 
 module.exports = Marionnette.ItemView.extend({
@@ -15201,7 +15308,7 @@ module.exports = Marionnette.ItemView.extend({
         this.undelegateEvents();
     }
 });
-},{"marionette":18}],16:[function(require,module,exports){
+},{"marionette":22}],20:[function(require,module,exports){
 var Marionnette = require('marionette');
 
 module.exports = Marionnette.ItemView.extend({        
@@ -15254,7 +15361,7 @@ module.exports = Marionnette.ItemView.extend({
         window.f7.closeModal('#' + this.id);
     }
 });
-},{"marionette":18}],17:[function(require,module,exports){
+},{"marionette":22}],21:[function(require,module,exports){
 var Marionnette = require('marionette');
 
 module.exports = Marionnette.ItemView.extend({
@@ -15267,7 +15374,7 @@ module.exports = Marionnette.ItemView.extend({
         }
     }
 });
-},{"../../templates/tab2/index.hbs":9,"marionette":18}],18:[function(require,module,exports){
+},{"../../templates/tab2/index.hbs":11,"marionette":22}],22:[function(require,module,exports){
 (function (global){
 
 ; require("/Users/underwarz/Sites/framework7/src/node_modules/backbone/backbone.js");
@@ -19224,7 +19331,7 @@ module.exports = Marionnette.ItemView.extend({
 }).call(global, undefined, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"/Users/underwarz/Sites/framework7/src/node_modules/backbone/backbone.js":19}],19:[function(require,module,exports){
+},{"/Users/underwarz/Sites/framework7/src/node_modules/backbone/backbone.js":23}],23:[function(require,module,exports){
 (function (global){
 
 ; require("/Users/underwarz/Sites/framework7/src/node_modules/jquery/dist/jquery.js");
@@ -21130,9 +21237,9 @@ require("/Users/underwarz/Sites/framework7/src/node_modules/underscore/underscor
 }).call(global, undefined, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"/Users/underwarz/Sites/framework7/src/node_modules/jquery/dist/jquery.js":67,"/Users/underwarz/Sites/framework7/src/node_modules/underscore/underscore.js":68}],20:[function(require,module,exports){
+},{"/Users/underwarz/Sites/framework7/src/node_modules/jquery/dist/jquery.js":71,"/Users/underwarz/Sites/framework7/src/node_modules/underscore/underscore.js":72}],24:[function(require,module,exports){
 arguments[4][2][0].apply(exports,arguments)
-},{"dup":2}],21:[function(require,module,exports){
+},{"dup":2}],25:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -21360,7 +21467,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":22}],22:[function(require,module,exports){
+},{"_process":26}],26:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -21453,7 +21560,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],23:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -21520,7 +21627,7 @@ exports['default'] = inst;
 module.exports = exports['default'];
 
 
-},{"./handlebars.runtime":24,"./handlebars/compiler/ast":26,"./handlebars/compiler/base":27,"./handlebars/compiler/compiler":29,"./handlebars/compiler/javascript-compiler":31,"./handlebars/compiler/visitor":34,"./handlebars/no-conflict":48}],24:[function(require,module,exports){
+},{"./handlebars.runtime":28,"./handlebars/compiler/ast":30,"./handlebars/compiler/base":31,"./handlebars/compiler/compiler":33,"./handlebars/compiler/javascript-compiler":35,"./handlebars/compiler/visitor":38,"./handlebars/no-conflict":52}],28:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -21589,7 +21696,7 @@ exports['default'] = inst;
 module.exports = exports['default'];
 
 
-},{"./handlebars/base":25,"./handlebars/exception":38,"./handlebars/no-conflict":48,"./handlebars/runtime":49,"./handlebars/safe-string":50,"./handlebars/utils":51}],25:[function(require,module,exports){
+},{"./handlebars/base":29,"./handlebars/exception":42,"./handlebars/no-conflict":52,"./handlebars/runtime":53,"./handlebars/safe-string":54,"./handlebars/utils":55}],29:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -21695,7 +21802,7 @@ exports.createFrame = _utils.createFrame;
 exports.logger = _logger2['default'];
 
 
-},{"./decorators":36,"./exception":38,"./helpers":39,"./logger":47,"./utils":51}],26:[function(require,module,exports){
+},{"./decorators":40,"./exception":42,"./helpers":43,"./logger":51,"./utils":55}],30:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -21728,7 +21835,7 @@ exports['default'] = AST;
 module.exports = exports['default'];
 
 
-},{}],27:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -21778,7 +21885,7 @@ function parse(input, options) {
 }
 
 
-},{"../utils":51,"./helpers":30,"./parser":32,"./whitespace-control":35}],28:[function(require,module,exports){
+},{"../utils":55,"./helpers":34,"./parser":36,"./whitespace-control":39}],32:[function(require,module,exports){
 /* global define */
 'use strict';
 
@@ -21946,7 +22053,7 @@ exports['default'] = CodeGen;
 module.exports = exports['default'];
 
 
-},{"../utils":51,"source-map":53}],29:[function(require,module,exports){
+},{"../utils":55,"source-map":57}],33:[function(require,module,exports){
 /* eslint-disable new-cap */
 
 'use strict';
@@ -22520,7 +22627,7 @@ function transformLiteralToPath(sexpr) {
 }
 
 
-},{"../exception":38,"../utils":51,"./ast":26}],30:[function(require,module,exports){
+},{"../exception":42,"../utils":55,"./ast":30}],34:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -22752,7 +22859,7 @@ function preparePartialBlock(open, program, close, locInfo) {
 }
 
 
-},{"../exception":38}],31:[function(require,module,exports){
+},{"../exception":42}],35:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -23880,7 +23987,7 @@ exports['default'] = JavaScriptCompiler;
 module.exports = exports['default'];
 
 
-},{"../base":25,"../exception":38,"../utils":51,"./code-gen":28}],32:[function(require,module,exports){
+},{"../base":29,"../exception":42,"../utils":55,"./code-gen":32}],36:[function(require,module,exports){
 /* istanbul ignore next */
 /* Jison generated parser */
 "use strict";
@@ -24620,7 +24727,7 @@ var handlebars = (function () {
 exports['default'] = handlebars;
 
 
-},{}],33:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 /* eslint-disable new-cap */
 'use strict';
 
@@ -24808,7 +24915,7 @@ PrintVisitor.prototype.HashPair = function (pair) {
 /* eslint-enable new-cap */
 
 
-},{"./visitor":34}],34:[function(require,module,exports){
+},{"./visitor":38}],38:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -24950,7 +25057,7 @@ exports['default'] = Visitor;
 module.exports = exports['default'];
 
 
-},{"../exception":38}],35:[function(require,module,exports){
+},{"../exception":42}],39:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25173,7 +25280,7 @@ exports['default'] = WhitespaceControl;
 module.exports = exports['default'];
 
 
-},{"./visitor":34}],36:[function(require,module,exports){
+},{"./visitor":38}],40:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25191,7 +25298,7 @@ function registerDefaultDecorators(instance) {
 }
 
 
-},{"./decorators/inline":37}],37:[function(require,module,exports){
+},{"./decorators/inline":41}],41:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25222,7 +25329,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../utils":51}],38:[function(require,module,exports){
+},{"../utils":55}],42:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25264,7 +25371,7 @@ exports['default'] = Exception;
 module.exports = exports['default'];
 
 
-},{}],39:[function(require,module,exports){
+},{}],43:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25312,7 +25419,7 @@ function registerDefaultHelpers(instance) {
 }
 
 
-},{"./helpers/block-helper-missing":40,"./helpers/each":41,"./helpers/helper-missing":42,"./helpers/if":43,"./helpers/log":44,"./helpers/lookup":45,"./helpers/with":46}],40:[function(require,module,exports){
+},{"./helpers/block-helper-missing":44,"./helpers/each":45,"./helpers/helper-missing":46,"./helpers/if":47,"./helpers/log":48,"./helpers/lookup":49,"./helpers/with":50}],44:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25353,7 +25460,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../utils":51}],41:[function(require,module,exports){
+},{"../utils":55}],45:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25449,7 +25556,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../exception":38,"../utils":51}],42:[function(require,module,exports){
+},{"../exception":42,"../utils":55}],46:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25476,7 +25583,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../exception":38}],43:[function(require,module,exports){
+},{"../exception":42}],47:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25507,7 +25614,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../utils":51}],44:[function(require,module,exports){
+},{"../utils":55}],48:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25535,7 +25642,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{}],45:[function(require,module,exports){
+},{}],49:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25549,7 +25656,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{}],46:[function(require,module,exports){
+},{}],50:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25584,7 +25691,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../utils":51}],47:[function(require,module,exports){
+},{"../utils":55}],51:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25633,7 +25740,7 @@ exports['default'] = logger;
 module.exports = exports['default'];
 
 
-},{"./utils":51}],48:[function(require,module,exports){
+},{"./utils":55}],52:[function(require,module,exports){
 (function (global){
 /* global window */
 'use strict';
@@ -25656,7 +25763,7 @@ module.exports = exports['default'];
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],49:[function(require,module,exports){
+},{}],53:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25950,7 +26057,7 @@ function executeDecorators(fn, prog, container, depths, data, blockParams) {
 }
 
 
-},{"./base":25,"./exception":38,"./utils":51}],50:[function(require,module,exports){
+},{"./base":29,"./exception":42,"./utils":55}],54:[function(require,module,exports){
 // Build out our basic SafeString type
 'use strict';
 
@@ -25967,7 +26074,7 @@ exports['default'] = SafeString;
 module.exports = exports['default'];
 
 
-},{}],51:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -26093,7 +26200,7 @@ function appendContextPath(contextPath, id) {
 }
 
 
-},{}],52:[function(require,module,exports){
+},{}],56:[function(require,module,exports){
 // USAGE:
 // var handlebars = require('handlebars');
 /* eslint-disable no-var */
@@ -26120,7 +26227,7 @@ if (typeof require !== 'undefined' && require.extensions) {
   require.extensions['.hbs'] = extension;
 }
 
-},{"../dist/cjs/handlebars":23,"../dist/cjs/handlebars/compiler/printer":33,"fs":20}],53:[function(require,module,exports){
+},{"../dist/cjs/handlebars":27,"../dist/cjs/handlebars/compiler/printer":37,"fs":24}],57:[function(require,module,exports){
 /*
  * Copyright 2009-2011 Mozilla Foundation and contributors
  * Licensed under the New BSD license. See LICENSE.txt or:
@@ -26130,7 +26237,7 @@ exports.SourceMapGenerator = require('./source-map/source-map-generator').Source
 exports.SourceMapConsumer = require('./source-map/source-map-consumer').SourceMapConsumer;
 exports.SourceNode = require('./source-map/source-node').SourceNode;
 
-},{"./source-map/source-map-consumer":60,"./source-map/source-map-generator":61,"./source-map/source-node":62}],54:[function(require,module,exports){
+},{"./source-map/source-map-consumer":64,"./source-map/source-map-generator":65,"./source-map/source-node":66}],58:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -26239,7 +26346,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./util":63,"amdefine":64}],55:[function(require,module,exports){
+},{"./util":67,"amdefine":68}],59:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -26387,7 +26494,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./base64":56,"amdefine":64}],56:[function(require,module,exports){
+},{"./base64":60,"amdefine":68}],60:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -26462,7 +26569,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":64}],57:[function(require,module,exports){
+},{"amdefine":68}],61:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -26581,7 +26688,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":64}],58:[function(require,module,exports){
+},{"amdefine":68}],62:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2014 Mozilla Foundation and contributors
@@ -26669,7 +26776,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./util":63,"amdefine":64}],59:[function(require,module,exports){
+},{"./util":67,"amdefine":68}],63:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -26791,7 +26898,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":64}],60:[function(require,module,exports){
+},{"amdefine":68}],64:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -27870,7 +27977,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./array-set":54,"./base64-vlq":55,"./binary-search":57,"./quick-sort":59,"./util":63,"amdefine":64}],61:[function(require,module,exports){
+},{"./array-set":58,"./base64-vlq":59,"./binary-search":61,"./quick-sort":63,"./util":67,"amdefine":68}],65:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -28271,7 +28378,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./array-set":54,"./base64-vlq":55,"./mapping-list":58,"./util":63,"amdefine":64}],62:[function(require,module,exports){
+},{"./array-set":58,"./base64-vlq":59,"./mapping-list":62,"./util":67,"amdefine":68}],66:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -28687,7 +28794,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./source-map-generator":61,"./util":63,"amdefine":64}],63:[function(require,module,exports){
+},{"./source-map-generator":65,"./util":67,"amdefine":68}],67:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -29059,7 +29166,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":64}],64:[function(require,module,exports){
+},{"amdefine":68}],68:[function(require,module,exports){
 (function (process,__filename){
 /** vim: et:ts=4:sw=4:sts=4
  * @license amdefine 1.0.0 Copyright (c) 2011-2015, The Dojo Foundation All Rights Reserved.
@@ -29364,15 +29471,15 @@ function amdefine(module, requireFn) {
 module.exports = amdefine;
 
 }).call(this,require('_process'),"/node_modules/handlebars/node_modules/source-map/node_modules/amdefine/amdefine.js")
-},{"_process":22,"path":21}],65:[function(require,module,exports){
+},{"_process":26,"path":25}],69:[function(require,module,exports){
 // Create a simple path alias to allow browserify to resolve
 // the runtime on a supported path.
 module.exports = require('./dist/cjs/handlebars.runtime')['default'];
 
-},{"./dist/cjs/handlebars.runtime":24}],66:[function(require,module,exports){
+},{"./dist/cjs/handlebars.runtime":28}],70:[function(require,module,exports){
 module.exports = require("handlebars/runtime")["default"];
 
-},{"handlebars/runtime":65}],67:[function(require,module,exports){
+},{"handlebars/runtime":69}],71:[function(require,module,exports){
 (function (global){
 ; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 /*!
@@ -38591,7 +38698,7 @@ return jQuery;
 }).call(global, undefined, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],68:[function(require,module,exports){
+},{}],72:[function(require,module,exports){
 (function (global){
 ; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 //     Underscore.js 1.8.3
@@ -40166,7 +40273,7 @@ app.addRegions({
 });
 
 module.exports = app;
-},{"marionette":18}],"Conf":[function(require,module,exports){
+},{"marionette":22}],"Conf":[function(require,module,exports){
 // This is ENV based conf
 var conf = {
     dev: {

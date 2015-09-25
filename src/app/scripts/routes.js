@@ -7,6 +7,8 @@ var MainLayout = require('./views/layouts/main.js');
 var HomeView = require('./views/home/index.js');
 var HomeSingleView = require('./views/home/single.js');
 var HomePopupView = require('./views/home/popup.js');
+var LoginView = require('./views/login/login.js');
+var RegisterView = require('./views/login/register.js');
 var Tab2IndexView = require('./views/tab2/index.js');
 
 module.exports = Marionette.AppRouter.extend({
@@ -38,6 +40,8 @@ module.exports = Marionette.AppRouter.extend({
     routes: {
         "": "getHome",
         "home/single": "getHomeSingle",
+        "login": "getLogin",
+        "register": "getRegister",
         "tab2": "getTab2"
     },
 
@@ -50,6 +54,18 @@ module.exports = Marionette.AppRouter.extend({
     getHomeSingle: function() {
         var page = new HomeSingleView;
         this.layout.mainView.addView(page); // Open a new page in the current view and perform animation
+    },
+
+    getLogin: function() {
+        var page = new LoginView;
+        this.layout.login.show(page);
+    },
+
+    getRegister: function() {
+        var page = new RegisterView({
+            activeView: '#popup-login .view'
+        });
+        this.layout.login.addView(page);
     },
 
     getTab2: function() {
