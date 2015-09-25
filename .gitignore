@@ -2,6 +2,7 @@ node_modules
 test/temp
 .sass-cache
 src/app/bower_components
+src/app/bundle.js
 .tmp
 src/test/bower_components/
 app-mobile/facebook-plugin
