@@ -1,63 +1,52 @@
-define([
-    'jquery',
-    'underscore',
-    'marionette',
-    'conf',
-    'app',
-    'templates'
-], function ($, _, Marionnette, Conf, App, JST) {
-    'use strict';
+var Marionnette = require('marionette');
 
-    var PopupView = Marionnette.ItemView.extend({        
-        originalEvents: {
-            "click .close": "close",
-            "click .finish": "finish"
-        },
+module.exports = Marionnette.ItemView.extend({        
+    originalEvents: {
+        "click .close": "close",
+        "click .finish": "finish"
+    },
 
-        additionalEvents: {
-        },
+    additionalEvents: {
+    },
 
-        events : function() {
-            return _.extend({},this.originalEvents,this.additionalEvents);
-        },
+    events : function() {
+        return _.extend({},this.originalEvents,this.additionalEvents);
+    },
 
-        initialize: function() {
-            this.render();
-        },
+    initialize: function() {
+        this.render();
+    },
 
-        onRender: function() {
-            window.f7.popup(this.template());
-            this.setElement(this.template); // Reload events
+    onRender: function() {
+        window.f7.popup(this.template());
+        this.setElement(this.template); // Reload events
 
-            $('#' + this.id).on('closed', _.bind(this.onClosed, this));
-        },
+        $('#' + this.id).on('closed', _.bind(this.onClosed, this));
+    },
 
-        onClosed: function() {
-            this.destroy();
-        },
+    onClosed: function() {
+        this.destroy();
+    },
 
-        onDestroy: function() {
-            this.undelegateEvents();
-        },
+    onDestroy: function() {
+        this.undelegateEvents();
+    },
 
-        close: function(e) {
-            this.closePopup();
+    close: function(e) {
+        this.closePopup();
 
-            e.preventDefault();
-            return false;
-        },
+        e.preventDefault();
+        return false;
+    },
 
-        finish: function(e) {
-            this.closePopup();
-            
-            e.preventDefault();
-            return false;
-        },
+    finish: function(e) {
+        this.closePopup();
+        
+        e.preventDefault();
+        return false;
+    },
 
-        closePopup: function() {
-            window.f7.closeModal('#' + this.id);
-        }
-    });
-
-    return PopupView;
+    closePopup: function() {
+        window.f7.closeModal('#' + this.id);
+    }
 });

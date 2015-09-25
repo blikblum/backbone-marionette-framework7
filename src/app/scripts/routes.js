@@ -6,6 +6,7 @@ var MainLayout = require('./views/layouts/main.js');
 
 var HomeView = require('./views/home/index.js');
 var HomeSingleView = require('./views/home/single.js');
+var HomePopupView = require('./views/home/popup.js');
 var Tab2IndexView = require('./views/tab2/index.js');
 
 module.exports = Marionette.AppRouter.extend({
