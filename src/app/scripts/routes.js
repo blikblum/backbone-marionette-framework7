@@ -42,7 +42,8 @@ module.exports = Marionette.AppRouter.extend({
         "home/single": "getHomeSingle",
         "login": "getLogin",
         "register": "getRegister",
-        "tab2": "getTab2"
+        "tab2": "getTab2",
+        "tab2/single": "getTab2Single"
     },
 
     /* Routes */
@@ -71,5 +72,10 @@ module.exports = Marionette.AppRouter.extend({
     getTab2: function() {
         var page = new Tab2IndexView;
         this.layout.tab2.show(page);
+    },
+
+    getTab2Single: function() {
+        var page = new HomeSingleView;
+        this.layout.tab2.addView(page);
     }
 });

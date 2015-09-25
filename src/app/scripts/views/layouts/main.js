@@ -8,8 +8,8 @@ var F7Region = Marionette.Region.extend({
     addView: function(view, options) {
     	// If already view attached, append new one for transition
     	if (this.currentView) {
-    		// Save old views for delete later only for estimation (deeper & deeper)
-    		if ($(this.el).parent().hasClass('view-estimation') || $(this.el).parent().hasClass('view-login')) {
+    		// Save old views for delete later only to reset view on region empty
+    		if ($(this.el).parent().hasClass('view-login')) {
     			this.oldViews.push(this.currentView);
     		}
 
@@ -75,11 +75,20 @@ module.exports = Marionette.LayoutView.extend({
 
     didSelectTab: function(e) {
     	if (!$(e.currentTarget).hasClass('active')) {
-    		this.$el.find('.tab-link.active').removeClass('active');
+	      	this.$el.find('.tab-link.active').removeClass('active');
     		$(e.currentTarget).addClass('active');
 
-    		// Show selected tab
-    		this.navigate(e);
+    		// Load tab content if not already loaded
+            var view = $(e.currentTarget).data('view');
+            if ($(view).find('.pages .page').length == 0) {
+	      		this.navigate(e);
+            }
+            else {
+            	if (view) {
+		  			$('.view.active').removeClass('active');
+		  			$(view).addClass('active');
+		  		}
+            }
     	}
     },
 
