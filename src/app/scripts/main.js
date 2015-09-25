@@ -86,36 +86,11 @@ App.start();
 
 
 /**
- * Cordova specs
+ * Cordova init
  */
-var pushNotification;
-
 if (window.cordova) {
     document.addEventListener('deviceready', function () {
-        /*try {
-            pushNotification = window.plugins.pushNotification;
-
-            if (device.platform == 'android' || device.platform == 'Android') {
-                pushNotification.register(successHandler, errorHandler, {
-                    "senderID": Conf.gcm.senderID,
-                    "ecb": "onNotification"
-                });
-            } else {
-                pushNotification.register(tokenHandler, errorHandler, {
-                    "badge": "true",
-                    "sound": "true",
-                    "alert": "true",
-                    "ecb": "onNotificationAPN"
-                });
-            }
-        }
-        catch (err) {
-            var txt = "There was an error on this page.\n\n";
-            txt += "Error description: " + err.message + "\n\n";
-            alert(txt);
-        }*/
-
-        // On resume app, refresh user
+        // On resume app
         document.addEventListener("resume", onResume, false);
 
         // On pause app
@@ -123,8 +98,12 @@ if (window.cordova) {
 
         // Android : back / app closed
         document.addEventListener("backbutton", function() {
+            // Close popup
+            if ($('#popup-home').length > 0) {
+                window.f7.closeModal('#popup-home');
+            }
             // Manage back popup login
-            if ($('#popup-login').hasClass('modal-in')) {
+            else if ($('#popup-login').hasClass('modal-in')) {
                 if ($('.view-login .pages .page').length > 1) {
                     $('.view-login')[0].f7View.back();
                 }
@@ -152,65 +131,6 @@ function exitApp() {
     if (device.platform == 'Android') {
         navigator.app.exitApp();
     }
-}
-
-// handle APNS notifications for iOS
-window.onNotificationAPN = function(e) {
-    if (e.sound) {
-        // playing a sound also requires the org.apache.cordova.media plugin
-        var snd = new Media(e.sound);
-        snd.play();
-    }
-
-    if (e.badge) {
-        pushNotification.setApplicationIconBadgeNumber(successHandler, errorHandler, e.badge);
-    }
-
-    if (e.type) {
-        handlePush(e);
-    }
-}
-
-// handle GCM notifications for Android
-window.onNotification = function (e) {
-    switch (e.event) {
-        case 'registered':
-            if (e.regid.length > 0) {
-                // TODO: Save GCM Token
-            }
-            break;
-
-        case 'message':
-            if (e.foreground) {
-                if (e.payload) {
-                    handlePush(e.payload);
-                }
-            }
-
-            break;
-
-        case 'error':
-            break;
-
-        default:
-            break;
-    }
-}
-
-function tokenHandler(result) {
-    
-}
-
-function successHandler(result) {
-    
-}
-
-function errorHandler(error) {
-    
-}
-
-function handlePush(obj) {
-
 }
 
 // On resume
