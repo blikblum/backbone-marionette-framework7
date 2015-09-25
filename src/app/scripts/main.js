@@ -86,6 +86,145 @@ App.start();
 
 
 /**
+ * Cordova specs
+ */
+var pushNotification;
+
+if (window.cordova) {
+    document.addEventListener('deviceready', function () {
+        /*try {
+            pushNotification = window.plugins.pushNotification;
+
+            if (device.platform == 'android' || device.platform == 'Android') {
+                pushNotification.register(successHandler, errorHandler, {
+                    "senderID": Conf.gcm.senderID,
+                    "ecb": "onNotification"
+                });
+            } else {
+                pushNotification.register(tokenHandler, errorHandler, {
+                    "badge": "true",
+                    "sound": "true",
+                    "alert": "true",
+                    "ecb": "onNotificationAPN"
+                });
+            }
+        }
+        catch (err) {
+            var txt = "There was an error on this page.\n\n";
+            txt += "Error description: " + err.message + "\n\n";
+            alert(txt);
+        }*/
+
+        // On resume app, refresh user
+        document.addEventListener("resume", onResume, false);
+
+        // On pause app
+        document.addEventListener("pause", onPause, false);
+
+        // Android : back / app closed
+        document.addEventListener("backbutton", function() {
+            // Manage back popup login
+            if ($('#popup-login').hasClass('modal-in')) {
+                if ($('.view-login .pages .page').length > 1) {
+                    $('.view-login')[0].f7View.back();
+                }
+                else {
+                    window.f7.closeModal('#popup-login');
+                }
+            }
+            // Close app if on first page of views (home index, tab2 index...)
+            else if (
+                ($('.view.active').hasClass('view-main') && ($('.view-main .pages .page').length == 1 || $('#home').hasClass('page-on-center'))) ||
+                ($('.view.active').hasClass('view-tab2') && ($('.view-tab2 .pages .page').length == 1 || $('#tab2').hasClass('page-on-center')))
+            ) {
+                exitApp();
+            }
+            // Back for all other views
+            else {
+                $('.view.active')[0].f7View.back();
+            }
+        }, false);
+    });
+}
+
+// Exit app
+function exitApp() {
+    if (device.platform == 'Android') {
+        navigator.app.exitApp();
+    }
+}
+
+// handle APNS notifications for iOS
+window.onNotificationAPN = function(e) {
+    if (e.sound) {
+        // playing a sound also requires the org.apache.cordova.media plugin
+        var snd = new Media(e.sound);
+        snd.play();
+    }
+
+    if (e.badge) {
+        pushNotification.setApplicationIconBadgeNumber(successHandler, errorHandler, e.badge);
+    }
+
+    if (e.type) {
+        handlePush(e);
+    }
+}
+
+// handle GCM notifications for Android
+window.onNotification = function (e) {
+    switch (e.event) {
+        case 'registered':
+            if (e.regid.length > 0) {
+                // TODO: Save GCM Token
+            }
+            break;
+
+        case 'message':
+            if (e.foreground) {
+                if (e.payload) {
+                    handlePush(e.payload);
+                }
+            }
+
+            break;
+
+        case 'error':
+            break;
+
+        default:
+            break;
+    }
+}
+
+function tokenHandler(result) {
+    
+}
+
+function successHandler(result) {
+    
+}
+
+function errorHandler(error) {
+    
+}
+
+function handlePush(obj) {
+
+}
+
+// On resume
+function onResume() {
+    
+}
+
+// On pause
+function onPause() {
+    
+}
+
+
+/**
  * Register all your Handlebars helpers / partials
  */
 
