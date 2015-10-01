@@ -1,53 +1,44 @@
-define([
-    'jquery',
-    'underscore',
-    'marionette',
-    'app'
-], function ($, _, Marionnette, App) {
-    'use strict';
+var Marionnette = require('marionette');
 
-    var ChildCompositeView = Marionnette.CompositeView.extend({
-        originalEvents: {
-            "click .navigate": "navigate",
-            "click .back": "back"
-        },
+module.exports = Marionnette.CompositeView.extend({
+    originalEvents: {
+        "click .navigate": "navigate",
+        "click .back": "back"
+    },
 
-        additionalEvents: {
-        },
+    additionalEvents: {
+    },
 
-        events : function() {
-            return _.extend({},this.originalEvents,this.additionalEvents);
-        },
+    events : function() {
+        return _.extend({},this.originalEvents,this.additionalEvents);
+    },
 
-        navigate: function(e) {
-            window.router.navigate($(e.currentTarget).attr('href'), { trigger: true });
+    navigate: function(e) {
+        window.router.navigate($(e.currentTarget).attr('href'), { trigger: true });
 
-            e.preventDefault();
-            return false;
-        },
+        e.preventDefault();
+        return false;
+    },
 
-        back: function(e) {     
-            $('.view.active')[0].f7View.router.back();
+    back: function(e) {     
+        $('.view.active')[0].f7View.router.back();
 
-            e.preventDefault();
-            return false;
-        },
+        e.preventDefault();
+        return false;
+    },
 
-        onDestroy: function() {
-            this.undelegateEvents();
-        },
+    onDestroy: function() {
+        this.undelegateEvents();
+    },
 
-        onShow: function(view, region, load) {
-            if (load) {
-                $('.view.active')[0].f7View.router.load({
-                    content: this.el,
-                    animatePages: App.animatePages
-                });
+    onShow: function(view, region, load) {
+        if (load) {
+            $('.view.active')[0].f7View.router.load({
+                content: this.el,
+                animatePages: App.animatePages
+            });
 
-                this.setElement(this.template); // Reload events
-            }
+            this.setElement(this.template); // Reload events
         }
-    });
-
-    return ChildCompositeView;
+    }
 });
