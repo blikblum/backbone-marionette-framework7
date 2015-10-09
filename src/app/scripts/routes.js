@@ -2,14 +2,14 @@ require('backbone');
 require('marionette');
 
 var App = require('App');
-var MainLayout = require('./views/layouts/main.js');
+var MainLayout = require('./views/layouts/main');
 
-var HomeView = require('./views/home/index.js');
-var HomeSingleView = require('./views/home/single.js');
-var HomePopupView = require('./views/home/popup.js');
-var LoginView = require('./views/login/login.js');
-var RegisterView = require('./views/login/register.js');
-var Tab2IndexView = require('./views/tab2/index.js');
+var HomeView = require('./views/home/index');
+var HomeSingleView = require('./views/home/single');
+var HomePopupView = require('./views/home/popup');
+var LoginView = require('./views/login/login');
+var RegisterView = require('./views/login/register');
+var Tab2IndexView = require('./views/tab2/index');
 
 module.exports = Marionette.AppRouter.extend({
     layout: null,
@@ -24,6 +24,7 @@ module.exports = Marionette.AppRouter.extend({
     },
 
     clearOldViews: function(view, region, options) {
+        // oldViews is a region's custom variable defined in views/layouts/main.js
         if (this.oldViews) {
             _.each(this.oldViews, function(view) {
                 view.destroy();
@@ -54,7 +55,9 @@ module.exports = Marionette.AppRouter.extend({
 
     getHomeSingle: function() {
         var page = new HomeSingleView;
-        this.layout.mainView.addView(page); // Open a new page in the current view and perform animation
+        this.layout.mainView.show(page, {
+            preventDestroy: true
+        });
     },
 
     getLogin: function() {
@@ -66,7 +69,9 @@ module.exports = Marionette.AppRouter.extend({
         var page = new RegisterView({
             activeView: '#popup-login .view'
         });
-        this.layout.login.addView(page);
+        this.layout.login.show(page, {
+            preventDestroy: true
+        });
     },
 
     getTab2: function() {
@@ -76,6 +81,8 @@ module.exports = Marionette.AppRouter.extend({
 
     getTab2Single: function() {
         var page = new HomeSingleView;
-        this.layout.tab2.addView(page);
+        this.layout.tab2.show(page, {
+            preventDestroy: true
+        });
     }
 });

@@ -1,4 +1,4 @@
-var MainItemView = require('../mainItemView.js');
+var MainItemView = require('../mainItemView');
 
 module.exports = MainItemView.extend({
     template: require('../../templates/tab2/index.hbs'),

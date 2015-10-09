@@ -47,6 +47,16 @@ $ grunt build:android --force
 
 Note : by default, there is no Cordova setup on this repo. Cordova is set-up if you use the Yeoman's generator.
 
+### Changelog
+
+##### 10/9/2015
+• Improve the child page system. You can now add a sub-page like main page in the router by using 
+```
+this.layout.REGION.show(page, {
+    preventDestroy: true
+});
+```
+
    [Backbone.JS]: <http://backbonejs.org/>
    [MarionetteJS]: <http://marionettejs.com/>
    [Framework7]: <http://www.idangero.us/framework7>

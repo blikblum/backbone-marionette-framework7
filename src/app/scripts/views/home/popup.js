@@ -1,4 +1,4 @@
-var Popup = require('../popup.js');
+var Popup = require('../popup');
 
 module.exports = Popup.extend({
     id: 'popup-home',

@@ -1,6 +1,6 @@
 var Marionnette = require('marionette');
-var MainItemView = require('../mainItemView.js');
-var Popup = require('./popup.js');
+var MainItemView = require('../mainItemView');
+var Popup = require('./popup');
 
 module.exports = MainItemView.extend({
     template: require('../../templates/home/index.hbs'),
