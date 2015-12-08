@@ -1,5 +1,5 @@
 {
-  "name": "framework7-backbone-marionette",
+  "name": "<%= appname %>",
   "auhtor": {
     "name": "Laurent Menu",
     "email": "menu.laurent@gmail.com"
