@@ -40,7 +40,7 @@ module.exports = Marionnette.View.extend({
 
     onAttach: function(view) {
         $(this.activeView)[0].f7View.router.load({
-            content: this.el,
+            pageElement: this.el,
             animatePages: true,
             query: {mnView: view}
         });

@@ -32,10 +32,11 @@ module.exports = Marionnette.CompositeView.extend({
         this.undelegateEvents();
     },
 
-    onShow: function(view, region, load) {
-        $(this.activeView)[0].f7View.router.load({
-            content: this.el,
-            animatePages: App.animatePages
-        });
-    }
+  onAttach: function(view) {
+    $(this.activeView)[0].f7View.router.load({
+      pageElement: this.el,
+      animatePages: true,
+      query: {mnView: view}
+    });
+  }
 });
