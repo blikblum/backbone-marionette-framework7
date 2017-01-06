@@ -7,10 +7,13 @@ var F7Region = Marionette.Region.extend({
 	},
     attachHtml: function(view) {
     	this.$el.append(view.el);
-  	}
+  	},
+	empty: function () {
+	//do nothing
+ }
 });
 
-module.exports = Marionette.LayoutView.extend({
+module.exports = Marionette.View.extend({
 	template: require('../../templates/layouts/main.hbs'),
 	attributes: function() {
 		return {
@@ -26,15 +29,15 @@ module.exports = Marionette.LayoutView.extend({
   	regions: {
 	   mainView: {
     		regionClass: F7Region,
-    		selector: ".view-main .pages"
+    		el: ".view-main .pages"
     	},
     	tab2: {
     		regionClass: F7Region,
-    		selector: ".view-tab2 .pages"
+    		el: ".view-tab2 .pages"
     	},
         login: {
             regionClass: F7Region,
-            selector: ".view-login .pages"
+            el: ".view-login .pages"
         }
   	},
 

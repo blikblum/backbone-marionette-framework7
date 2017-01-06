@@ -1,17 +1,9 @@
 require('marionette');
 
 var App = Marionette.Application.extend({
-	initialize: function(options) {
-  	}
+	region: '.app-container'
 });
 
-var app = new App({
-	container: '.app-container'
-});
-
-// Add main region
-app.addRegions({
-	mainContainer: app.container
-});
+var app = new App({});
 
 module.exports = app;

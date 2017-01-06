@@ -50,22 +50,7 @@ App.on('start', function() {
 
     // Attache current Marionette view to Framework7 page for delete
     f7.onPageInit('*', function(page) {
-        var viewSelector = page.view.selector;
-
-        // Save BM's view for destroy later
-        switch(viewSelector) {
-            case '.view-main':
-                page.context = window.router.layout.mainView.currentView;
-                break;
-
-            case '.view-tab2':
-                page.context = window.router.layout.tab2.currentView;
-                break;
-
-            case '.view-login':
-                page.context = window.router.layout.login.currentView;
-                break;
-        }
+        page.context = page.query.mnView;
     });
 
     /**

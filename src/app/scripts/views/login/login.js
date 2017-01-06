@@ -1,6 +1,6 @@
 var Marionnette = require('marionette');
 
-module.exports = Marionnette.ItemView.extend({
+module.exports = Marionnette.View.extend({
     template: require('../../templates/login/login.hbs'),
     attributes: function() {
         return {
@@ -14,7 +14,7 @@ module.exports = Marionnette.ItemView.extend({
         "click .navigate": "navigate"
     },
 
-    onShow: function() {
+    onAttach: function() {
         // Open popup
         window.f7.popup('#popup-login');
 

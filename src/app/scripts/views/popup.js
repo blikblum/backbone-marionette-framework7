@@ -1,6 +1,6 @@
 var Marionnette = require('marionette');
 
-module.exports = Marionnette.ItemView.extend({        
+module.exports = Marionnette.View.extend({
     originalEvents: {
         "click .close": "close",
         "click .finish": "finish"

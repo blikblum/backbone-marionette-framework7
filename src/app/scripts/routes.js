@@ -19,7 +19,7 @@ module.exports = Marionette.AppRouter.extend({
 
     initialize: function() {
         this.layout = new MainLayout();
-        App.mainContainer.show(this.layout);
+        App.getRegion().show(this.layout);
 
         // Delete old views when empty a region
         // ex : this.layout.REGIONNAME.on('empty', _.bind(this.clearOldViews, this));
@@ -53,45 +53,45 @@ module.exports = Marionette.AppRouter.extend({
     /* Routes */
     getHome: function () {
         var page = new HomeView;
-        this.layout.mainView.show(page);
+        this.layout.getRegion('mainView').show(page);
     },
 
     getHomeSingle: function() {
         var page = new HomeSingleView;
-        this.layout.mainView.show(page, {
+        this.layout.getRegion('mainView').show(page, {
             preventDestroy: true
         });
     },
 
     getHomeSecondLevel: function () {
       var page = new HomeSecondLevelView;
-      this.layout.mainView.show(page, {
+      this.layout.getRegion('mainView').show(page, {
         preventDestroy: true
       });
     },
 
     getLogin: function() {
         var page = new LoginView;
-        this.layout.login.show(page);
+        this.layout.getRegion('login').show(page);
     },
 
     getRegister: function() {
         var page = new RegisterView({
             activeView: '#popup-login .view'
         });
-        this.layout.login.show(page, {
+        this.layout.getRegion('login').show(page, {
             preventDestroy: true
         });
     },
 
     getTab2: function() {
         var page = new Tab2IndexView;
-        this.layout.tab2.show(page);
+        this.layout.getRegion('tab2').show(page);
     },
 
     getTab2Single: function() {
         var page = new HomeSingleView;
-        this.layout.tab2.show(page, {
+        this.layout.getRegion('tab2').show(page, {
             preventDestroy: true
         });
     }
