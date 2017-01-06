@@ -6,10 +6,12 @@ var MainLayout = require('./views/layouts/main');
 
 var HomeView = require('./views/home/index');
 var HomeSingleView = require('./views/home/single');
+var HomeSecondLevelView = require('./views/home/secondlevel');
 var HomePopupView = require('./views/home/popup');
 var LoginView = require('./views/login/login');
 var RegisterView = require('./views/login/register');
 var Tab2IndexView = require('./views/tab2/index');
+
 
 module.exports = Marionette.AppRouter.extend({
     layout: null,
@@ -41,6 +43,7 @@ module.exports = Marionette.AppRouter.extend({
     routes: {
         "": "getHome",
         "home/single": "getHomeSingle",
+        "home/secondlevel": "getHomeSecondLevel",
         "login": "getLogin",
         "register": "getRegister",
         "tab2": "getTab2",
@@ -58,6 +61,13 @@ module.exports = Marionette.AppRouter.extend({
         this.layout.mainView.show(page, {
             preventDestroy: true
         });
+    },
+
+    getHomeSecondLevel: function () {
+      var page = new HomeSecondLevelView;
+      this.layout.mainView.show(page, {
+        preventDestroy: true
+      });
     },
 
     getLogin: function() {
