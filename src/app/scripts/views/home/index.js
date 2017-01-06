@@ -1,9 +1,17 @@
-var Marionnette = require('marionette');
-var MainItemView = require('../mainItemView');
+var Marionette = require('marionette');
+var F7Page = require('../f7page');
 var Popup = require('./popup');
 
-module.exports = MainItemView.extend({
+module.exports = Marionette.View.extend({
     template: require('../../templates/home/index.hbs'),
+
+    behaviors: [
+      {
+        behaviorClass: F7Page,
+        isRoot: true
+      }
+    ],
+
     attributes: function() {
         return {
             id: "home",
@@ -12,7 +20,7 @@ module.exports = MainItemView.extend({
         }
     },
 
-    additionalEvents: {
+    events: {
         "click .open-popup": "openPopup"
     },
 

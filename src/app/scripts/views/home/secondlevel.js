@@ -1,7 +1,10 @@
-var ChildItemView = require('../childItemView');
+var Marionette = require('marionette');
+var F7Page = require('../f7page');
 
-module.exports = ChildItemView.extend({
+module.exports = Marionette.View.extend({
   template: require('../../templates/home/secondlevel.hbs'),
+
+  behaviors: [F7Page],
 
   attributes: function() {
     return {
