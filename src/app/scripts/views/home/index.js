@@ -25,7 +25,8 @@ module.exports = Marionette.View.extend({
     },
 
     openPopup: function(e) {
-        new Popup;
+        var popup = new Popup;
+        popup.render();
 
         e.preventDefault();
         return false;
