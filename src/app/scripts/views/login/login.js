@@ -18,7 +18,7 @@ module.exports = Marionnette.View.extend({
         // Open popup
         window.f7.popup('#popup-login');
 
-        $('#popup-login').on('closed', _.bind(this.onClosed, this));
+        $('#popup-login').on('popup:closed', _.bind(this.onClosed, this));
     },
 
     onClosed: function() {
