@@ -7,6 +7,7 @@ module.exports = Marionette.Behavior.extend({
   },
 
   events: {
+    'page:afterback': 'destroy',
     'click .navigate': 'onNavigateClick',
     'click .back': 'onBackClick'
   },
@@ -30,9 +31,7 @@ module.exports = Marionette.Behavior.extend({
     if (!this.isRoot) {
       viewEl = $(this.activeView)[0];
       viewEl.f7View.router.load({
-        pageElement: view.el,
-        animatePages: true,
-        query: {mnView: view}
+        pageElement: view.el
       });
     }
   }

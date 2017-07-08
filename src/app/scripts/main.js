@@ -48,18 +48,6 @@ App.on('start', function() {
         domCache: true
     });
 
-    // Attache current Marionette view to Framework7 page for delete
-    f7.onPageInit('*', function(page) {
-        page.context = page.query.mnView;
-    });
-
-    /**
-     * Destroy Marionette view after back
-     */
-    f7.onPageAfterBack('*', function(page) {
-        page.context.destroy(); // On back, destroy the BM's view attach to the F7's Page
-    });
-
     // Start Backbone history (not really used due to Framework7 router)
     if (Backbone.history){
         Backbone.history.start();
